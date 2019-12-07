@@ -1,6 +1,13 @@
 
+image-building - add java, maven, docker, jenkins for below build (1.2, latest)
+--------------------------------------------
+Added using modifying container and saving as image 
 
-htop - add htop for above intial build (latest)
+docker commit container_ID repository_name:tag 
+
+docker push thanujtk/centos:1.2 (also as latest)
+
+htop - add htop for above below build (1.1)
 ------------------------------------------
 
 docker build -t thanujtk/centos:latest .
