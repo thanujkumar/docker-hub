@@ -1,0 +1,13 @@
+version: '3.0'
+services:
+  tomcat:
+    image: tomcat:latest
+    privileged: true
+    ports:
+      - "8888:8080"
+
+  memcached:
+    image: memcached:latest
+    #linking is not required here as from version 2 containers run with-in will identify each other by name
+    #use docker-compose up -d memcached tomcat
+    #Once container is created then docker-compose start/stop/restart memcached tomcat

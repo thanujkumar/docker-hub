@@ -53,4 +53,12 @@ ff02::2 ip6-allrouters
 for memcached we don't need to expose ports if link is created between
 tomcat and memcached (if memcached is going to be accessed by tomcat) as
 --link creates a secure tunnel between containers that doesn't need to
-expose any ports externally on the container
+expose any ports externally on the container.
+
+Manual linking of containers and configuring services becomes
+impractical when number of containers grows, so the approach is to use
+__docker-compose__, define docker-compose.yml.
+
+docker-compose had issue on CentOS7 - (__pip install requests urllib3
+pyOpenSSL --force --upgrade__) , after above execution it worked,
+example of using pip (pip install --upgrade pip)
