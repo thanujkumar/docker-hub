@@ -1,0 +1,7 @@
+install kubectl
+
+https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+
+https://www.linuxtechi.com/install-kubernetes-1-7-centos7-rhel7/
+on VM - https://github.com/kubernetes/minikube/issues/4770
+minikube start --vm-driver=none --extra-config=kubelet.cgroup-driver=systemd
