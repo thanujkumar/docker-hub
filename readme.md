@@ -66,3 +66,7 @@ example of using pip (pip install --upgrade pip)
 few commands docker-compose ps, docker-compose logs, docker-compose rm,
 docker-compose build
 
+WHAT and WHY - CONTAINERS, ORCHESTRATION
+-----------------------------------
+![Alt](./container_orchestration_what_why.png "WHAT and WHY - CONTAINERS, ORCHESTRATION")
+
