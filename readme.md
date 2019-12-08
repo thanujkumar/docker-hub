@@ -62,3 +62,7 @@ __docker-compose__, define docker-compose.yml.
 docker-compose had issue on CentOS7 - (__pip install requests urllib3
 pyOpenSSL --force --upgrade__) , after above execution it worked,
 example of using pip (pip install --upgrade pip)
+
+few commands docker-compose ps, docker-compose logs, docker-compose rm,
+docker-compose build
+
