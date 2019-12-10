@@ -33,5 +33,28 @@ minikube commands
 > kubectl scale --replicas=3 deployment/hello-nginx  (scale it)
 > minikube update-context (in case ip got changed)
  ```
+ 
+ Tomcat deployment without deployment.yml, check minikube\tomcat
+  ```
+  > kubectl run hello-tomcat --image=tomcat --port=8080
+  > kubectl expose deployment hello-tomcat --port=8080 --type=NodePort
+  > kubectl get pods
+  > kubectl.exe get services
+  > minikube service hello-tomcat
+  > kubectl delete services hello-tomcat
+  > kubectl delete deployment hello-tomcat
+  ```
 [K8S Cheat Sheet](https://design.jboss.org/redhatdeveloper/marketing/kubernetes_cheatsheet/cheatsheet/cheat_sheet/images/kubernetes_cheat_sheet_r1v1.pdf)
 
+Examples
+-------------------
+1. minikube/First_k8s_tomcat/deployment.yml
+      ```
+      > kubectl apply -f ./deployment.yml
+      > kubectl expose deployment tomcat-deployment --type=NodePort
+      > kubectl get services
+      > minikube service tomcat-deployment
+      > kubectl delete services tomcat-deployment
+      > kubectl delete deployment tomcat-deployment
+      ```
+2. next
