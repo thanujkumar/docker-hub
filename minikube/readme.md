@@ -109,3 +109,10 @@ Examples
      > kubectl describe node minikube
      > kubectl get pods --all-namespaces
     ```
+4.  DNS and Service Discovery (minikube/dns_and_service_discovery)
+  ```
+    First deployment is mysql with deployment name "wordpress-mysql", which resolves as host name
+    > kubectl create -f mysql-deployment.yml
+    Deploy wordpress
+    > 
+  ```
