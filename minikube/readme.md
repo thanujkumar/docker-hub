@@ -46,6 +46,10 @@ minikube commands
   ```
 [K8S Cheat Sheet](https://design.jboss.org/redhatdeveloper/marketing/kubernetes_cheatsheet/cheatsheet/cheat_sheet/images/kubernetes_cheat_sheet_r1v1.pdf)
 
+[Kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
+[Kubectl commands/reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
+
 Examples
 -------------------
 1. minikube/First_k8s_tomcat/deployment.yml
@@ -53,8 +57,29 @@ Examples
       > kubectl apply -f ./deployment.yml
       > kubectl expose deployment tomcat-deployment --type=NodePort
       > kubectl get services
-      > minikube service tomcat-deployment
+      > minikube service tomcat-deployment (--url)
       > kubectl delete services tomcat-deployment
       > kubectl delete deployment tomcat-deployment
-      ```
+      
+    Either change the value in configuratin for replicas and redeploy or use below command to change replicas for deployment pods
+      > kubectl scale --replicas=4 deployment/tomcat-deployment
+   
+     Now four instances are running this requires a load balancer and we could not use (kubectl expose deployment tomcat-deployment --type=NodePort) as it is one-to-one mapping
+   
+      > kubectl expose deployment tomcat-deployment --type=LoadBalancer --port=8080 --target-port=8080 --name tomcat-load-balancer
+      > kubectl describe services tomcat-load-balancer
+      > minikube service tomcat-load-balancer --url (to get load balancer url)
+      > kubectl rollout status deployment tomcat-deployment (to know rollout status)
+   
+     Now if you look at the deployment.yml spec.containers image is tomcat:9.0 and sepc.container.name is tomcat, let us upgrade the deployment 
+      > kubectl set image deployment/tomcat-deployment tomcat=tomcat:9.0.1
+   
+     To know the history of rollout
+     > kubectl rollout history deployment/tomcat-deployment
+     > kubectl rollout history deployment/tomcat-deployment --revision=2
+   
+     Labels and selectors
+     You can label - deployments, services and nodes in k8s (example: label a node that it has SSD storage and then use
+        selector to tell the deployment that our app should only ever go onto a node with SSD storage)
+     ```
 2. next
