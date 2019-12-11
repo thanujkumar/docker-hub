@@ -92,16 +92,20 @@ Examples
     ```
      Continuation, once label is created, modify deployment.yml to have nodeSelector and deploy
      > kubectl apply -f .\deployment.yml
-     > kubectl expose deployment tomcat-deployment-jdk13 --type=LoadBalancer --port=8080 target-port=8080 --name tomcat-load-balancer
+     > kubectl expose deployment tomcat-deployment-jdk13 --type=LoadBalancer --port=8080 --target-port=8080 --name tomcat-load-balancer
      > kubectl get services
      > kubectl describe services tomcat-load-balancer
      > minikube service tomcat-load-balancer --url
     ```
  3. minikube/health - [Health checks (readiness or liveness probe)]
     ```
-      Copy deployment.yml from minikube/WithLabels
+      Copy deployment.yml from minikube/WithLabels, changes related to health is done 
+      
      > kubectl apply -f ./deployment.yml
-    
+     > kubectl describe pods tomcat-deployment-jdk13 (or to get all pods > kubectl describe pods)
+     > kubectl describe deployment tomcat-deployment-jdk13
+     
      To know the node stats
      > kubectl describe node minikube
+     > kubectl get pods --all-namespaces
     ```
