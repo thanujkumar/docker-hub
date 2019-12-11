@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment-jdk13
+spec:
+  selector:
+    matchLabels:
+      app: tomcat-jdk13
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: tomcat-jdk13
+    spec:
+      containers:
+        - name: tomcat-jdk13
+          image: tomcat:9.0.29-jdk13-openjdk-oracle
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+              httpGet:
+                path: /
+                port: 8080
+              initialDelaySeconds: 15
+              periodSeconds: 3

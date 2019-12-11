@@ -54,6 +54,7 @@ Examples
 -------------------
 1. minikube/First_k8s_tomcat/deployment.yml
       ```
+      > kubectl api-versions (provides the kubectl api versions supported that can be used in deployment.yml, apiVersion: apps/v1)
       > kubectl apply -f ./deployment.yml
       > kubectl expose deployment tomcat-deployment --type=NodePort
       > kubectl get services
@@ -81,5 +82,26 @@ Examples
      Labels and selectors
      You can label - deployments, services and nodes in k8s (example: label a node that it has SSD storage and then use
         selector to tell the deployment that our app should only ever go onto a node with SSD storage)
-     ```
-2. next
+   
+      First get the nodes 
+      > kubectl get nodes
+      > kubectl describe node minikube (minikube is the node name, role=master)
+      > kubectl label node minikube storageTypeThanuj=ssd (it is just a key=value pair which will be stored in labels)
+      ```
+2. minikube/WithLabels
+    ```
+     Continuation, once label is created, modify deployment.yml to have nodeSelector and deploy
+     > kubectl apply -f .\deployment.yml
+     > kubectl expose deployment tomcat-deployment-jdk13 --type=LoadBalancer --port=8080 target-port=8080 --name tomcat-load-balancer
+     > kubectl get services
+     > kubectl describe services tomcat-load-balancer
+     > minikube service tomcat-load-balancer --url
+    ```
+ 3. minikube/health - [Health checks (readiness or liveness probe)]
+    ```
+      Copy deployment.yml from minikube/WithLabels
+     > kubectl apply -f ./deployment.yml
+    
+     To know the node stats
+     > kubectl describe node minikube
+    ```
