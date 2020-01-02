@@ -1,0 +1,15 @@
+{
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "ghost"
+  },
+  "kind": "Pod",
+  "spec": {
+    "containers": [
+      {
+        "name": "ghost",
+        "image": "ghost"
+      }
+    ]
+  }
+}

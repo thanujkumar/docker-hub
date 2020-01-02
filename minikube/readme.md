@@ -5,10 +5,13 @@ minikube.exe start --vm-driver="hyperv" --hyperv-virtual-switch="Default Switch"
 If default switch not available then create a switch and ensure to share
 internet for that switch.
 
-When docker kubernetes is installed then get token to login to dashboard after running 
+When docker kubernetes is installed then get token to login to dashboard after running
+
+```
 > kubectl proxy
 > kubectl -n kube-system  describe secret default
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=default
+ ```
 
 minikube commands
 --------------------------
@@ -59,6 +62,7 @@ minikube commands
 Examples
 -------------------
 1. minikube/First_k8s_tomcat/deployment.yml
+
       ```
       > kubectl api-versions (provides the kubectl api versions supported that can be used in deployment.yml, apiVersion: apps/v1)
       > kubectl apply -f ./deployment.yml
@@ -94,7 +98,9 @@ Examples
       > kubectl describe node minikube (minikube is the node name, role=master)
       > kubectl label node minikube storageTypeThanuj=ssd (it is just a key=value pair which will be stored in labels)
       ```
+   
 2. minikube/WithLabels
+
     ```
      Continuation, once label is created, modify deployment.yml to have nodeSelector and deploy
      > kubectl apply -f .\deployment.yml
@@ -104,6 +110,7 @@ Examples
      > minikube service tomcat-load-balancer --url
     ```
  3. minikube/health - [Health checks (readiness or liveness probe)]
+ 
     ```
       Copy deployment.yml from minikube/WithLabels, changes related to health is done 
       
@@ -116,10 +123,67 @@ Examples
      > kubectl get pods --all-namespaces
     ```
 4.  DNS and Service Discovery (minikube/dns_and_service_discovery)
+
     ```
     First deployment is mysql with deployment name "wordpress-mysql", which resolves as host name
     > kubectl create -f mysql-deployment.yml
 
     Deploy wordpress
     > kubectl create -f wordpress-deployment.yml
-   ```
+    ```
+ 
+5.  quotas (minikube/quotas)
+    
+    ```
+    Create a custom namespace by name thanuj
+    > kubectl create ns thanuj
+    > kubectl get ns
+    
+    To know in the background how kubectl is using API (verbose enabled with -v=9), note for curl "https" on windows use double quote
+    >  kubectl -v=9 get pods
+    
+    Getting existing pods from default namespace using curl
+    > curl -XGET -H "Accept: application/json" localhost:8001/api/v1/namespaces/default/pods
+    
+    Creating a pod using json with curl command (check quotas/pod.json)
+    > kubectl get pods (no pods shown, we will create one by image name ghost as defined in pod.json)
+    
+    From quotas folder 
+    > curl -H "Content-Type: application/json" --data @./pod.json -XPOST http://localhost:8001/api/v1/namespaces/default/pods
+    > kubectl get pods 
+    
+    To delete using curl
+    > curl -XDELETE localhost:8001/api/v1/namespaces/default/pods/ghost
+    
+    Creating ghost application in thanuj namespace (for default > kubectl create -f pod.json)
+    > curl -H "Content-Type: application/json" --data @pod.json -XPOST http://localhost:8001/api/v1/namespaces/thanuj/pods
+    > kubectl get pods -n thanuj
+    
+    Create a quota with hard restriction to have only one pod, this will be created in default namespace
+    > kubectl create quota tkquota --hard pods=1
+    > kubectl get resourcequotas
+    > kubectl get resourcequotas tkquota -o yaml
+    
+    Now deploy the qpod.json which is modified to name=tkquota and deploy to default namespace
+    > curl -H "Content-Type: application/json" --data @qpod.json -XPOST http://localhost:8001/api/v1/namespaces/default/pods
+    
+    Re-run and you get quota exceeded
+    > kubectl delete pod tkquota
+    > kubectl -n thanuj delete pod ghost
+    > kubectl -n thanuj delete pod tkquota
+    > kubectl create -f pod.json
+    
+    Using labels (find labels which is metadata of pods)
+    > kubectl get pods  --show-labels
+    > kubectl -n kube-system get pods  --show-labels
+    
+    To create a label for ghost
+    > kubectl label pods ghost foo=bar
+    > kubectl get pods -l foo=bar (query by label)
+    > kubectl get pods -Lfoo=bar (another way to query by label)
+    ```
+  
+  6. Looking at API schema version group
+  ```
+  > kubectl api-versions
+  ```
