@@ -26,6 +26,7 @@ minikube commands
 > kubectl.exe get services  (shows the mapped port for access)
 > kubectl get svc  (to get port)
 > minikube service hello-nginx --url  (if --url is not given will open in browser)
+> kubectl get pods -n kube-system
 
 > kubectl delete services hello-nginx
 > kubectl delete deployment hello-nginx
