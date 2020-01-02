@@ -5,6 +5,11 @@ minikube.exe start --vm-driver="hyperv" --hyperv-virtual-switch="Default Switch"
 If default switch not available then create a switch and ensure to share
 internet for that switch.
 
+When docker kubernetes is installed then get token to login to dashboard after running 
+> kubectl proxy
+> kubectl -n kube-system  describe secret default
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=default
+
 minikube commands
 --------------------------
 
