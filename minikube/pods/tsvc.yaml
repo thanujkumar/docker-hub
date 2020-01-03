@@ -1,0 +1,11 @@
+# As a service where it is accessible - tomcat service, but here tomcat container is not deployed, it is just a service
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-jdk13
+spec:
+  selector:
+    app: tomcat-jdk13
+  ports:
+    - port: 8080
+  type: NodePort

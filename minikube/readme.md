@@ -183,7 +183,91 @@ Examples
     > kubectl get pods -Lfoo=bar (another way to query by label)
     ```
   
-  6. Looking at API schema version group
-  ```
-  > kubectl api-versions
-  ```
+6. Looking at API schema version group which are enabled
+
+      ```
+      > kubectl api-versions
+      > kubectl api-resources (give resources)
+      ```
+7. Creating pods (minikube/pods)
+ 
+     ```
+     > kubectl create -f pod.yaml
+     > kubectl delete pods ghost
+     
+      Replica Set
+     > kubectl create -f rs.yaml
+     > kubectl delete replicaset ghost
+    
+     Service - which allows to access application if container is running
+     > kubectl create -f svc.yaml
+     > kubectl create -f tsvc.yaml
+    
+    Below service would route request from 30911 to internal container port 8080, for this tomcat container should be running
+    $ kubectl get svc
+    NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    ghost          NodePort    10.98.161.246   <none>        2368:30137/TCP   5m55s
+    kubernetes     ClusterIP   10.96.0.1       <none>        443/TCP          16d
+    tomcat-jdk13   NodePort    10.107.13.161   <none>        8080:30911/TCP   3m1s
+    
+    Trying to access localhost:30911 will not work as there is no tomcat pod running
+    Run tomcat pod
+    > kubectl create -f health/deployment.yml
+    After deployment of tomcat you should be able to access as 30911 is routed to tomcat pod that is running at 8080
+    > kubectl delete deployment tomcat-deployment-jdk13
+    > kubectl delete service tomcat-jdk13 
+    
+    Without yaml file, this will create deployment, replica set and pods
+    > kubectl run ghost --image=ghost:1.7 --port 2368 --expose=true
+    > kubectl edit svc ghost (change from Type from ClusterIP to NodePort)
+    > kubectl get svc
+    ```
+ 8. Rolling updates
+ 
+     ```
+      > kubectl delete resourcequota tkquota
+      > kubectl scale deployments ghost --replicas=4
+      > kubectl get pods -o json 
+      > kubectl edit deployments ghost (change from version 1.7 to 1.8 for image for rolling update)
+      > kubectl delete -n default deployment ghost
+    ```
+    
+  9. Helm - Helm is a tool that streamlines installing and managing Kubernetes applications
+          https://github.com/helm/helm/releases ---+---
+          https://helm.sh/docs/intro/
+  
+      ```
+      > http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+     
+      > helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+      > helm search repo stable
+      > helm search repo stable/mysql
+      > helm install sonarqube stable/sonarqube -n thanuj
+      > helm uninstall sonarqube -n thanuj
+      > helm create hello-helm3
+      > kubectl create namespace helm3-ns1
+      > kubectl create namespace helm3-ns2
+      > kubectl get ns
+      > helm install sample-deployment hello-helm3 -n helm3-ns1
+      > helm install sample-deployment hello-helm3 -n helm3-ns2
+      > kubectl get pods -n helm3-ns1
+      > helm list --all-namespaces
+      > kubectl get secret -n helm3-ns1
+      > helm uninstall sample-deployment -n helm3-ns1
+      > helm uninstall sample-deployment -n helm3-ns2
+      > kubectl delete ns helm3-ns1
+      > kubectl delete ns helm3-ns2
+     
+     
+      Installing jenkins using helm 
+      > helm install jenkins stable/jenkins -n thanuj
+      To get admin password for jenkins (Base64 encoded)
+      > kubectl get secret --namespace thanuj jenkins -o jsonpath="{.data.jenkins-admin-password}"
+      > kubectl get secret --namespace thanuj jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode (on gitbash sh)
+        password: gJhe6EvX1B 
+      > kubectl get pods -n thanuj
+      > kubectl get svc -n thanuj
+      > kubectl edit service jenkins -n thanuj (change type: ClusterIP to NodePort)
+      > helm ls -n thanuj
+      > kubectl exec -ti jenkins-7dc8cfdfd9-kpbg6 -n thanuj sh  (to login to container)
+      ```

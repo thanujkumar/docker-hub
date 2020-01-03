@@ -1,0 +1,11 @@
+# As a service where it is accessible
+apiVersion: v1
+kind: Service
+metadata:
+  name: ghost
+spec:
+  selector:
+    app: ghost
+  ports:
+    - port: 2368
+  type: NodePort

@@ -1,0 +1,19 @@
+#replicaSet
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: ghost
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      name: ghost
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost
+          image: ghost
