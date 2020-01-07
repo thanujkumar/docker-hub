@@ -271,3 +271,13 @@ Examples
       > helm ls -n thanuj
       > kubectl exec -ti jenkins-7dc8cfdfd9-kpbg6 -n thanuj sh  (to login to container)
       ```
+     
+  10. Ensuring container doesn't stop when no service exists
+  
+    ```
+     https://stackoverflow.com/questions/31870222/how-can-i-keep-a-container-running-on-kubernetes
+   
+     kubectl run slave0 --image=thanujtk/centos:latest sleep infinity -n thanuj
+   ```
+     
+      
