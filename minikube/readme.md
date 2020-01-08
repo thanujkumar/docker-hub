@@ -279,5 +279,25 @@ Examples
    
      kubectl run slave0 --image=thanujtk/centos:latest sleep infinity -n thanuj
    ```
+   
+ 11. Logging into running container as root (in kubectl)
      
+     ```
+      In case of docker (-u 0 is the root user)
+      > docker exec -u 0 -it <image id> /bin/bash
+     
+      In case of kubernetes
+      > kubectl describe pod <pod name> -n <name space>
+      Containers:
+       jenkins:
+         Container ID:   docker://e0147b859762b201b40d13fd85c64dfe09fc8c22e79bb88b0e3acb02ae4f5d8b
+         Image:          jenkins/jenkins:lts-centos
+         Image ID:       docker-pullable://jenkins/jenkins@sha256:c1a408940f8e98a44d0985e3692777770e21188576c018f5ac31809cbdac3e0b
+     
+      You will find container id, then use docker command to SSH
+     > docker exec -u root -it e0147b859762b201b40d13fd85c64dfe09fc8c22e79bb88b0e3acb02ae4f5d8b /bin/bash
+     
+     To get pod ip
+     > kubectl get pods -n thanuj -o wide
+     ```
       
