@@ -266,6 +266,7 @@ Examples
       > kubectl get secret --namespace thanuj jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode (on gitbash sh)
         password: gJhe6EvX1B 
       > kubectl get pods -n thanuj
+      > kubectl --namespace thanuj port-forward $POD_NAME 8080:8080 
       > kubectl get svc -n thanuj
       > kubectl edit service jenkins -n thanuj (change type: ClusterIP to NodePort)
       > helm ls -n thanuj
