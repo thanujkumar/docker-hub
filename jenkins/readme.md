@@ -14,6 +14,24 @@
     ```
     Create a namespace ci-cd
     > kubectl create ns ci-cd
-    To create deployment in ci-cd
+   
+    To create deployment in ci-cd, once deployment done a pod is created
     > kubectl apply -f jenkins-deployment.yaml -n ci-cd
+    > kubectl describe pod jenkins -n ci-cd
+   
+    In addition to pod creation via deployment, we need to create the Jenkins service
+    > kubectl apply -f jenkins-service.yaml -n ci-cd
+    ```
+   
+3. Login to jenkins and configure Jenkins slave
+    ```
+     > kubectl get svc -n ci-cd (to get port)
+     
+     To identify kubernetes cluster info for identifying the  kubernetes master address
+     > kubectl cluster-info
+     > kubectl get pods -n ci-cd
+     > kubectl describe pod jenkins-68bbbf7665-lnhdz -n ci-cd (to find IP address of jenkins master)
+   
+     Now fill the kubernetes configuration information in jenkins master
+    
     ```
