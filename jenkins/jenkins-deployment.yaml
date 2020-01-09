@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: thanujtk/jenkins-master-kube:v1.0
-          env:
-            - name: JAVA_OPTS
-              value: -Djenkins.install.runSetupWizard=false
+          image: thanujtk/jenkins-master-kube
+#          env:
+#            - name: JAVA_OPTS
+#              value: -Djenkins.install.runSetupWizard=false
           ports:
             - name: http-port
               containerPort: 8080

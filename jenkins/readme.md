@@ -21,6 +21,7 @@
    
     In addition to pod creation via deployment, we need to create the Jenkins service
     > kubectl apply -f jenkins-service.yaml -n ci-cd
+    > kubectl apply -f jenkins-slave-service.yaml -n ci-cd
     ```
    
 3. Login to jenkins and configure Jenkins slave
@@ -28,10 +29,12 @@
      > kubectl get svc -n ci-cd (to get port)
      
      To identify kubernetes cluster info for identifying the  kubernetes master address
-     > kubectl cluster-info
-     > kubectl get pods -n ci-cd
-     > kubectl describe pod jenkins-68bbbf7665-lnhdz -n ci-cd (to find IP address of jenkins master)
+     > kubectl cluster-info (to know the internal url of kubernetes master)
+     > kubectl get pods -n ci-cd -o wide (to know the ip of the jenkins master)
+     > (Another way to find IP) kubectl describe pod jenkins-68bbbf7665-lnhdz -n ci-cd (to find IP address of jenkins master)
    
-     Now fill the kubernetes configuration information in jenkins master
-    
+     Now fill the kubernetes configuration information in jenkins server (master)
+      Manage Jenkins -> Configure Jenkins
     ```
+   
+   ![Alt](./jenkins-config.png "Jenkins Master configuration for Kubernetes")
