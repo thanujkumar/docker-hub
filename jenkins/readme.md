@@ -19,6 +19,7 @@
     > kubectl apply -f jenkins-deployment.yaml -n ci-cd
     > kubectl describe pod jenkins -n ci-cd
    
+    Change jenkins master executor to zero so that all builds go to slave 
     In addition to pod creation via deployment, we need to create the Jenkins service
     > kubectl apply -f jenkins-service.yaml -n ci-cd
     > kubectl apply -f jenkins-slave-service.yaml -n ci-cd
