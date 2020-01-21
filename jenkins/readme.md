@@ -34,7 +34,7 @@
      > kubectl get pods -n ci-cd -o wide (to know the ip of the jenkins master)
      > (Another way to find IP) kubectl describe pod jenkins-68bbbf7665-lnhdz -n ci-cd (to find IP address of jenkins master)
    
-     Now fill the kubernetes configuration information in jenkins server (master)
+     Now fill the kubernetes configuration information in jenkins server (master - add new cloud as kubernetes)
       Manage Jenkins -> Configure Jenkins
     ```
    

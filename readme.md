@@ -24,6 +24,8 @@ needs memcached server for it to access cache by its application
 
 __docker run --rm -d --name memcached -p 11211:11211 memcached__ 
 
+__docker run -it --rm thanujtk/jenkins-slave /bin/sh__
+
 Next we need to connect tomcat to memcached which is named as memcached,
 below running tomcat linked to memcached
 
@@ -36,7 +38,7 @@ tomcat__
  
  __ping memcached__
  
- also check __>more /etc/hosts__ file to understan how container id is
+ also check __>more /etc/hosts__ file to understand how container id is
  mapped for communication 
  
 ``` 
