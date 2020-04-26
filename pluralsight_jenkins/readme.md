@@ -10,22 +10,31 @@ Major difference between Virtual Machine vs Docker
   -  Master-Slave
   -  Dedicated Machines
   -  Dedicated VM's
-  
+
+  ### Creating my own lts-jdk11 jenkins with maven installed (Dockerfile has details)
+ ```
+  > docker build -t thanujtk/jenkins:lts-jdk11 .
+  > docker push thanujtk/jenkins:lts-jdk11
+
+  To login to container as root
+  > sudo docker exec -u root -it [container-id] bash
+ ```   
+   
   #### Commands (#> commands can be used to create dockerfile)
   
   ``` 
    > docker search jenkins
-   #> docker pull jenkins/jenkins:lts
-   > docker run -p 8080:8080 jenkins/jenkins:lts
-   > docker run --rm -p 2112:8080 jenkins/jenkins:lts  (binding to local port 2112 and when stopped remove container)
+   #> docker pull thanujtk/jenkins:lts-jdk11
+   > docker run -p 8080:8080 thanujtk/jenkins:lts-jdk11
+   > docker run --rm -p 2112:8080 thanujtk/jenkins:lts-jdk11  (binding to local port 2112 and when stopped remove container)
 
    Let us create a jenkins-master with below command (jenkins_home at /var/jenkins_home and 50000 is the slave port)
-   > docker run -p 2112:8080 -p 50000:50000 --name jenkins-master jenkins/jenkins:lts
+   > docker run -p 2112:8080 -p 50000:50000 --name jenkins-master thanujtk/jenkins:lts-jdk11
 
    Enable file sharing in docker and run below command (ensure folder C://DOCKER/Volumes/jenkins-master is created)
    Ensure to remove previous container with same name 
   > docker container ls -a and use > docker container rm <id>
-  > docker run -p 2112:8080 -p 50000:50000 -v C://DOCKER/Volumes/jenkins-master:/var/jenkins_home --name jenkins-master jenkins/jenkins:lts
+  > docker run -p 2112:8080 -p 50000:50000 -v C://DOCKER/Volumes/jenkins-master:/var/jenkins_home --name jenkins-master thanujtk/jenkins:lts-jdk11
   > docker start jenkins-master (to restart the stopped container with --name, if --name is not given random name is created)
   With above approach even if remove container and re-run with above command nothing changes as volume mapped still exists on local machine
  
