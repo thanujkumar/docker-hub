@@ -29,8 +29,12 @@ Look at Dockerfile how https://get.docker.com is used to install docker into jen
  ``` 
 
  Next is to create a Jenkinsfile (buildDeploy.Jenkinsfile) which will build a docker image from ./images/Dockerfile and move it to dockerhub
-
+ 
+ Ensure thanujtk/jenkins:lts-jdk11 has maven + docker, so built once-again with Dockerfile having docker as defined at ./Dockerfile
+ 
+ Run thanujtk/jenkins:;ts-jdk11 container and then configure job as below pointing to ./buildDeploy.Jenkinsfile
  ``` 
+  
  ``` 
  
  
