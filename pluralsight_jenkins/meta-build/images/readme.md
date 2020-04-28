@@ -1,0 +1,1 @@
+This folder will contain Dockerfile that is used to create image from buildDeploy.Jenkinsfile
