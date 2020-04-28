@@ -1,6 +1,6 @@
-Installing docker with-in jenkins container
+Installing docker with-in jenkins container and running as docker daemon
 
-Look at Dockerfile how https://get.docker.com is used to install docker into jenkins
+Look at Dockerfile how https://get.docker.com is used to install docker 
 
   ``` 
  > docker build -t thanujtk/jenkins:lts-jdk11-v1 - < Dockerfile
@@ -13,28 +13,28 @@ Look at Dockerfile how https://get.docker.com is used to install docker into jen
   Using docker run --privileged ......
   https://blog.trendmicro.com/trendlabs-security-intelligence/why-running-a-privileged-container-in-docker-is-a-bad-idea/
 
- > docker run --rm --privileged thanujtk/jenkins:lts-jdk11-v1
-  login to container as 'jenkins' user, pedantic_lehmann is container name generated
- > docker exec -it --user jenkins pedantic_lehmann /bin/bash
+ > docker run --rm --privileged --name docker_daemon thanujtk/jenkins:lts-jdk11-v1
+  login to container as 'jenkins' user, docker-docker_daemon is container name 
+ > docker exec -it --user jenkins docker_daemon /bin/bash
 
   Now you can verify that docker is running inside the container (docker ps)
   Just to verify that i can build image in container, i will copy the meta-build/Dockerfile to this container and run it
-  Open CMD window and run below command to copy to  pedantic_lehmann container
+  Open CMD window and run below command to copy to  docker_daemon container
   
-  >  docker cp Dockerfile pedantic_lehmann:/
+  >  docker cp Dockerfile docker_daemon:/
 
-  Next go to the / and execute the build in the container to check
+  Next go into the docker_daemon container and from the /  execute the build in the container to check docker daemon is working fine
   
   jenkins@e1d9beda693e:/$ docker build -t thanujtk/jenkins:lts-jdk11-v2 - < Dockerfile
  ``` 
 
  Next is to create a Jenkinsfile (buildDeploy.Jenkinsfile) which will build a docker image from ./images/Dockerfile and move it to dockerhub
  
- Ensure thanujtk/jenkins:lts-jdk11 has maven + docker, so built once-again with Dockerfile having docker as defined at ./Dockerfile
+ We run thanujtk/jenkins:lts-jdk11 as jenkins server
  
- Run thanujtk/jenkins:;ts-jdk11 container and then configure job as below pointing to ./buildDeploy.Jenkinsfile
- ``` 
-  
- ``` 
+ We run thanujtk/jenkins:lts-jdk11-v1 as docker daemon
+ 
+ Then we configure jenkins server to point to this daemon to build docker images as below.
+ 
  
  

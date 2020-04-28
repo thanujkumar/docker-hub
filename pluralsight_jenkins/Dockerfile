@@ -1,4 +1,5 @@
 # https://hub.docker.com/r/jenkins/jenkins/tags
+# built as thanujtk/jenkins:lts-jdk11
 FROM jenkins/jenkins:lts-jdk11
 USER root
 #Below command installs very old version so get download link from maven.apache.org and install manually

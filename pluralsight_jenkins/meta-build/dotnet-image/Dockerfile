@@ -1,6 +1,7 @@
 # pulled from https://stackoverflow.com/questions/48104954/adding-net-core-to-docker-container-with-jenkins
 # Thanks to rockstar (Dockstar?) Dennis Fazekas
-
+#  This will have jdk11 + maven + dotnet
+#  This build name will be thanujtk/jenkins:lts-jdk11-dotnet-vx as defined in ../buildDeploy.Jenkinsfile
 FROM thanujtk/jenkins:lts-jdk11
 USER root
 
