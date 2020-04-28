@@ -36,5 +36,9 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  
  Then we configure jenkins server to point to this daemon to build docker images as below.
  
+ https://k6.io/blog/bootstrap-your-ci-with-jenkins-and-github  (on how to have credentials for login to GitHub)
+ 
+ Developer personal token - https://github.com/settings/tokens
+ 
  
  
