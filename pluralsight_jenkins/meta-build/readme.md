@@ -13,17 +13,17 @@ Look at Dockerfile how https://get.docker.com is used to install docker
   Using docker run --privileged ......
   https://blog.trendmicro.com/trendlabs-security-intelligence/why-running-a-privileged-container-in-docker-is-a-bad-idea/
 
- > docker run --rm --privileged --name docker_daemon thanujtk/jenkins:lts-jdk11-v1
-  login to container as 'jenkins' user, docker-docker_daemon is container name 
- > docker exec -it --user jenkins docker_daemon /bin/bash
+ > docker run --rm --privileged --name docker-daemon thanujtk/jenkins:lts-jdk11-v1
+  login to container as 'jenkins' user, docker-daemon is container name 
+ > docker exec -it --user jenkins docker-daemon /bin/bash
 
   Now you can verify that docker is running inside the container (docker ps)
   Just to verify that i can build image in container, i will copy the meta-build/Dockerfile to this container and run it
-  Open CMD window and run below command to copy to  docker_daemon container
+  Open CMD window and run below command to copy to  docker-daemon container
   
-  >  docker cp Dockerfile docker_daemon:/
+  >  docker cp Dockerfile docker-daemon:/
 
-  Next go into the docker_daemon container and from the /  execute the build in the container to check docker daemon is working fine
+  Next go into the docker-daemon container and from the /  execute the build in the container to check docker daemon is working fine
   
   jenkins@e1d9beda693e:/$ docker build -t thanujtk/jenkins:lts-jdk11-v2 - < Dockerfile
  ``` 
@@ -35,6 +35,9 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  We run thanujtk/jenkins:lts-jdk11-v1 as docker daemon
  
  Then we configure jenkins server to point to this daemon to build docker images as below.
+ 
+ 
+ 
  
  https://k6.io/blog/bootstrap-your-ci-with-jenkins-and-github  (on how to have credentials for login to GitHub)
  

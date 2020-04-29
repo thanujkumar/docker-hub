@@ -74,4 +74,7 @@ Major difference between Virtual Machine vs Docker
   To view images that have vulnerabilities - https://snyk.io/blog/top-ten-most-popular-docker-images-each-contain-at-least-30-vulnerabilities/
   Best practices - https://snyk.io/blog/10-docker-image-security-best-practices/
 
+  When adding ssh-key to agent in container to configure ssh-key with github if issue exists restart agent
+  eval `ssh-agent -s`
+  ssh-add ~/.ssh/id_rsa
    ``` 
