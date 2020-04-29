@@ -36,8 +36,17 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  
  Then we configure jenkins server to point to this daemon to build docker images as below.
  
+ Next create a job "DotnetImage-DockerAgent" as "pipeline" build
+ Configured username as "thanujkumar" and personal token - e70e26fa5712744f0652deaecc47802db3019b71 as defined for "Laptop-Docker"
+ 
+ Note: above token didn't work from agent point so made the repository public.
+ 
+ Below is the configuration done to Jenkins http://localhost:2112/configureClouds/
  
  
+ ![Alt](./configuring-docker-agent-jenkins.png "Configuring jenkins cloud")
+
+
  
  https://k6.io/blog/bootstrap-your-ci-with-jenkins-and-github  (on how to have credentials for login to GitHub)
  
