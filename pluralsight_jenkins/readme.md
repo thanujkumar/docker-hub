@@ -35,6 +35,12 @@ Major difference between Virtual Machine vs Docker
    Ensure to remove previous container with same name 
   > docker container ls -a and use > docker container rm <id>
   > docker run -p 2112:8080 -p 50000:50000 -v C://DOCKER/Volumes/jenkins-master:/var/jenkins_home --name jenkins-master thanujtk/jenkins:lts-jdk11
+
+  To force the plugin upgrades you could run as below
+
+  > docker run -p 2112:8080 -p 50000:50000 -e PLUGINS_FORCE_UPGRADE=true -v C://DOCKER/Volumes/jenkins-master:/var/jenkins_home --name jenkins-master thanujtk/jenkins:lts-jdk11
+
+
   > docker start jenkins-master (to restart the stopped container with --name, if --name is not given random name is created)
   With above approach even if remove container and re-run with above command nothing changes as volume mapped still exists on local machine
  

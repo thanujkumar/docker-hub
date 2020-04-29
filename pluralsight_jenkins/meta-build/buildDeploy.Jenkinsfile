@@ -10,7 +10,7 @@ node('docker'){
 	stage('push'){
 	//set in jenkins as credentials id for username and password
 		docker.withRegistry('https://index.docker.io/v1/', 'thanujtk-id'){
-			dockerImage.push();
+		dockerImage.push();
 		}
 	}
 }

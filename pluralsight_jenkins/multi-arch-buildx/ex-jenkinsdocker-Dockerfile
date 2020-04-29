@@ -1,0 +1,3 @@
+# This is docker agent (thanujtk/jenkins:lts-jdk11-v1) that has jenkins + maven + docker which will be enabled for experimental features
+FROM thanujtk/jenkins:lts-jdk11-v1
+ENV DOCKER_CLI_EXPERIMENTAL=enabled

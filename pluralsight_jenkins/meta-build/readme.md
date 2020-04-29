@@ -55,5 +55,12 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  
  Developer personal token - https://github.com/settings/tokens
  
+ Different ways of connection to docker agent/container by jenkins master
+ 
+ ![Alt](./connect-methods.png "Connection Methods")
+ 
+ In JNLP and SSH, slaves communicate directly with master
+ 
+ In Attach Container communication is enabled by Host
  
  
