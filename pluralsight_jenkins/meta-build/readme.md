@@ -32,9 +32,7 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  
  We run thanujtk/jenkins:lts-jdk11 as jenkins server
  
- We run thanujtk/jenkins:lts-jdk11-v1 as docker daemon
- 
- Then we configure jenkins server to point to this daemon to build docker images as below.
+ Then we configure jenkins server to point to  daemon to build docker images as below (which will be pulled by jenkins as a docker daemon agent and run in the container.
  
  Next create a job "DotnetImage-DockerAgent" as "pipeline" build
  Configured username as "thanujkumar" and personal token - e70e26fa5712744f0652deaecc47802db3019b71 as defined for "Laptop-Docker"
@@ -43,6 +41,11 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  
  Below is the configuration done to Jenkins http://localhost:2112/configureClouds/
  
+ Ensure to create a username-password credentials and set the id to thanujtk-id which is used in buildDeploy.Jenkinsfile
+ 
+ - Name of Job: DotnetImage-DockerAgent
+ - Git Location: https://github.com/thanujkumar/docker-hub.git
+ - Jenkinsfile Location: pluralsight_jenkins/meta-build/buildDeploy.Jenkinsfile
  
  ![Alt](./configuring-docker-agent-jenkins.png "Configuring jenkins cloud")
 
