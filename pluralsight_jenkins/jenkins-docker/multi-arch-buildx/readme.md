@@ -28,7 +28,7 @@ Whenever docker pull is issued manifest of the image is looked to get the archit
 ``` 
 Enabling experimental features (also required for buildx which targets multi-architecture)
 
-![Alt](./enable-experimental.png "Enable experimental feature in docker")
+![Alt](enable-experimental.png "Enable experimental feature in docker")
 
 
 We are going to create two products of microsoft images having jenkins + dotnet core target to two architecture (AMD 64 and ARM) using buildx experimental feature

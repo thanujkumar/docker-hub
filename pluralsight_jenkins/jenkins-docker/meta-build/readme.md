@@ -45,9 +45,9 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  
  - Name of Job: DotnetImage-DockerAgent
  - Git Location: https://github.com/thanujkumar/docker-hub.git
- - Jenkinsfile Location: pluralsight_jenkins/meta-build/buildDeploy.Jenkinsfile
+ - Jenkinsfile Location: pluralsight_jenkins/jenkins-docker/meta-build/buildDeploy.Jenkinsfile
  
- ![Alt](./configuring-docker-agent-jenkins.png "Configuring jenkins cloud")
+ ![Alt](configuring-docker-agent-jenkins.png "Configuring jenkins cloud")
 
 
  
@@ -57,7 +57,7 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  
  Different ways of connection to docker agent/container by jenkins master
  
- ![Alt](./connect-methods.png "Connection Methods")
+ ![Alt](connect-methods.png "Connection Methods")
  
  In JNLP and SSH, slaves communicate directly with master
  

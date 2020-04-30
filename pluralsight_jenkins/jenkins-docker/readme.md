@@ -1,3 +1,9 @@
+This has following examples:
+
+- Using Installed Docker (exposed through localhost:2375) to be used as docker agent that will pull images to execute jobs in jenkins slaves
+- Next is creating an image that has docker installed in it and using it to pull images and execute jenins jobs
+- Next is looking at build multi-arch images using buildx (experimental feature)
+
 Major difference between Virtual Machine vs Docker
  - Docker uses shared kernel vs each instance of VM will have it own kernel (not shared)
  
@@ -62,17 +68,17 @@ Major difference between Virtual Machine vs Docker
     Next is to install docker plugin, in Jenkins as Admin go to plugins
      > Jenkins > Manage Jenkins > Manage Plugins > 
  ``` 
-   ![Alt](./jenkins-docker-plugin.png "Configuring jenkins for docker plugin")
+   ![Alt](jenkins-docker-plugin.png "Configuring jenkins for docker plugin")
  ``` 
    in jenkins container to know internal host name it will be > ping host.docker.internal (this will resolve to ip)
    > Jenkins > Manage Nodes and Clouds > Configure Clouds > Add New Cloud (select Docker)
    Test and then select "Enabled" and "Expose DOCKER_HOST", next is to add "Docker Agent templates"
  ``` 
-![Alt](./jenkins-add-new-cloud.png "Configuring jenkins cloud")
+![Alt](jenkins-add-new-cloud.png "Configuring jenkins cloud")
  ``` 
   Configuring docker agent 
  ``` 
-![Alt](./jenkins-add-docker-agent.png "Configuring docker agent in jenkins")
+![Alt](jenkins-add-docker-agent.png "Configuring docker agent in jenkins")
  ``` 
   Now create just a helloWorld free-style job and configure to run on "slave" (General > Restrict where this project is run) and build
   View jenkins logs at > http://localhost:2112/log/all

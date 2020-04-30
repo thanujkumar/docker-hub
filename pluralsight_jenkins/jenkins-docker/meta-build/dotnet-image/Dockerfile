@@ -5,6 +5,8 @@
 FROM thanujtk/jenkins:lts-jdk11
 USER root
 
+#wget  https://dot.net/v1/dotnet-install.sh && chmod +x dotnet-install.sh && ./dotnet-install.sh
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl libunwind8 gettext apt-transport-https && \
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
