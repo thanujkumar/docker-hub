@@ -1,6 +1,8 @@
 # https://hub.docker.com/r/jenkins/jenkins/tags
+#https://gliderlabs.com/registrator/latest/user/services/#tags-and-attributes
 # built as thanujtk/jenkins:lts-jdk11
 FROM jenkins/jenkins:lts-jdk11
+LABEL maintainer="THANUJ KUMAR S C <thanuj_tk@yahoo.com>"
 USER root
 #Below command installs very old version so get download link from maven.apache.org and install manually
 #RUN apt-get update && apt-get install -y maven
