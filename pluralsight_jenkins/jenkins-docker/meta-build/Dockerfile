@@ -5,6 +5,6 @@ USER root
 RUN apt-get update -qq && apt-get install -qqy apt-utils apt-transport-https ca-certificates curl lxc iptables
 # Below installs docker with-in the jenkins
 RUN curl -sSL https://get.docker.com | sh
-
+#chmod 666 /var/run/docker.sock
 RUN usermod -aG docker jenkins
 CMD dockerd

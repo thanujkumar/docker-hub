@@ -1,3 +1,5 @@
+Understand groups etc - https://devconnected.com/how-to-list-users-and-groups-on-linux/
+
 Look at how to use github infra to build with workflow - https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow
 
 Debian OS - debian 
