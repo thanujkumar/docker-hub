@@ -1,7 +1,7 @@
 This has following examples:
 
 - Using Installed Docker (exposed through localhost:2375) to be used as docker agent that will pull images to execute jobs in jenkins slaves
-- Next is creating an image that has docker installed in it and using it to pull images and execute jenins jobs
+- Next is creating an image that has docker installed in it and using it to pull images and execute jenkins jobs
 - Next is looking at build multi-arch images using buildx (experimental feature)
 
 Major difference between Virtual Machine vs Docker
@@ -90,3 +90,10 @@ Major difference between Virtual Machine vs Docker
   eval `ssh-agent -s`
   ssh-add ~/.ssh/id_rsa
    ``` 
+In case you need to map to local volumes (example maven repo for agent)
+
+![Alt](set-container-properties.png "Set container properties")
+
+Here set the container volumes as per agent maven repository to host repository
+
+![Alt](container-volumes.png "Set container volumes")

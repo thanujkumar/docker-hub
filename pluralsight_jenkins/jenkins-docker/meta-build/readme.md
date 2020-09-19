@@ -46,7 +46,15 @@ Look at Dockerfile how https://get.docker.com is used to install docker
  - Name of Job: DotnetImage-DockerAgent
  - Git Location: https://github.com/thanujkumar/docker-hub.git
  - Jenkinsfile Location: pluralsight_jenkins/jenkins-docker/meta-build/buildDeploy.Jenkinsfile
- 
+
+ Jenkins URL examample: http://localhost:9993/configureClouds/
+  Next is to install docker plugin, in Jenkins as Admin go to plugins
+   > Jenkins > Manage Jenkins > Manage Plugins
+
+in jenkins container to know internal host name it will be > ping host.docker.internal (this will resolve to ip)
+  > Jenkins > Manage Nodes and Clouds > Configure Clouds > Add New Cloud (select Docker)
+  Test and then select "Enabled" and "Expose DOCKER_HOST", next is to add "Docker Agent templates"
+
  ![Alt](configuring-docker-agent-jenkins.png "Configuring jenkins cloud")
 
 

@@ -1,0 +1,1 @@
+docker build -f jdk11.Dockerfile -t thanujtk/jenkins-slave:jdk11 .
