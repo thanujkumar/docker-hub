@@ -1,0 +1,8 @@
+#FROM should be first command
+FROM debian:jessie
+LABEL maintainer="thanuj_tk@yahoo.com"
+#any command that we can run on linux terminal based on the container, here reduce number of image layers being created
+RUN apt-get update && apt-get install -y \
+    git \
+    vim
+COPY abc.txt /tmp/abc.txt

@@ -1,0 +1,6 @@
+#instruction is not case-sensitive
+FROM debian:jessie
+#any command that we can run on linux terminal based on the container
+RUN apt-get update && apt-get install -y git
+RUN apt-get install -y vim
+#Above created two image layers - still uses parent entrypoint/command
