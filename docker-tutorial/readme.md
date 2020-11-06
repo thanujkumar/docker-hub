@@ -88,5 +88,24 @@ Sometime cache may create problems due to aggressive caching to avoid cache alto
 > docker run --rm -it thanujtk/debian:1.4  (login to container with default CMD and check /tmp)
 ```
 ##### <u>ADD Instruction</u>
-1. Very similar to COPY, in addition allows to download file from internet and copy to cotainer.
+1.  Similar to COPY, in addition allows to download file from internet and copy to container.
 2. ADD instruction also has ability to automatically unpack compressed files.
+
+
+##### <u>Tagging existing image with new name</u>
+
+```
+> docker tag b59d8cfe1024 thanujtk/tutorial_debian:1.1  (changing thanujtk/debian:1.4 to new tag, note image id will be same)
+> docker login --usename=thanujtk
+> docker push thanujtk/tutorial_debian:1.1
+```
+
+##### <u>Running docker app as admin user - 05-Dockerfile</u>
+```
+> docker build -t thanujtk/debian:1.5 -f 05-Dockerfile .
+> docker run -it  --rm thanujtk/debian:1.5 ( will be placed at > admin@57ca20d81d77:/images$ )
+> docker exec -it <container-id> bash ( you can login to running container from new command prompt to know that default user is admin)
+```
+
+##### <u> Docker Compose </u>
+Compose is a tool for defining and running multi-container Docker applications.
