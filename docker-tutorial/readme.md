@@ -107,5 +107,85 @@ Sometime cache may create problems due to aggressive caching to avoid cache alto
 > docker exec -it <container-id> bash ( you can login to running container from new command prompt to know that default user is admin)
 ```
 
+##### <u> Docker container links</u>
+1. Main benefit is to link different containers to communicate each other
+2. linking container will have entry in /etc/hosts (docker run -d -p 5000:5000 --link redis tomcat/tomcat)
+3. Docker creates a secure tunnel between the containers that doesn't need to expose any ports externally on the container
+4. Manual linking of containers becomes complicated when more container needs to communicate, so use docker-compose (from version 3 no need to create link in docker-compose as network will take care of it)
+
+One of the many in-built docker's features is networking. Docker networking feature can be accessed by using a --link flag which allows to connect  
+any number of docker containers without the need to expose container's internal ports to the outside world.
+
+There is nothing new about the above command (1>) except to note that we are not exposing any network ports even though our intention is to  
+access services ( ssh, database etc.) via their relevant port numbers.
+
+```
+1> docker run --rm -it --name sandbox1 -h sanbox1 linuxconfig/sandbox /bin/bash    (-h hostname of container)
+2> docker run --rm -it --name sandbox2 -h sandbox2 --link sandbox1:sandbox1 linuxconfig/sandbox /bin/bash (--link containerId:alias)
+```
+Furthermore, --link flag will enable the parent container to access any services running on sandbox1 container via its corresponding ports numbers  
+without the child container's  need to expose any ports to outside world.
+
 ##### <u> Docker Compose </u>
 Compose is a tool for defining and running multi-container Docker applications.
+```
+> docker-compose -f 06-docker-compose.yml up   (check container would be created and exited)
+> docker-compose -f 06-docker-compose.yml up -d (in background, by using docker-compose you could use same stopped container to restart/start)
+> docker-compose -f 06-docker-compose.yml stop
+> docker-compose -f 06-docker-compose.yml start
+> docker-compose -f 06-docker-compose.yml restart
+> docker-compose -f 06-docker-compose.yml rm
+> docker-compose down  (will remove containers and network bridge too)
+```
+
+##### <u> Docker Network types </u>
+1. Closed Network/None Network - no access to outside and container is isolated from other containers
+2. Bridged Network
+3. Host Network
+4. Overlay Network
+
+```
+> docker network ls   (by default bridge, host and none will be present)
+> docker network inspect 70b1813cec07  (checking bridge network listed above and will be able to view subnet details)
+```
+
+<u>Closed/None Network</u>
+
+```
+> docker run --rm -d --net none linuxconfig/sandbox sleep 1000   (Closed/None example, can't ping to outside and also only one localloop network from ifconfig)
+```
+<u>Bridged Network</u>
+
+```
+> docker run --rm -d --name container_1 linuxconfig/sandbox sleep 1000  (no --net parameter, by default bridge is assigned, has access to outside and any linked container, has two network loopback and eth0)
+> docker run --rm -d --name container_2 linuxconfig/sandbox sleep 1000 (check the IP's through private IP can ping other though --link is not provided)
+```
+To create a new bridge network separate from default
+
+```
+> docker network ls
+> docker network create --driver bridge tk_bridge_nw
+> docker network ls
+> docker network inspect tk_bridge_nw   (check subnet range is different)
+> docker run --rm -d --name container_3 --net tk_bridge_nw linuxconfig/sandbox sleep 1000  (running new container under tk_bridge_nw, but this can't connect with other bridge by default, see below how to solve it)
+```
+How to connect between different bridge networks
+```
+> docker network connect bridge container_3  (here bridge is the default in which container_1 and container_2 is running, now you will see 3 networks - eth0, eth1 and lo) 
+> docker network disconnect bridge container_3  (to disconnect, now only 2 networks shown - eth0 and lo )
+```
+
+<u>Host Network</u>
+The least protected network model, it adds a container on the host's network stack (full access to host interface). These sort of containers are called **Open Containers**
+
+```
+> docker run --rm -d --name container_4 --net host linuxconfig/sandbox sleep 1000  (lists all host network interfaces and good performance as no SDN in between)
+```
+
+<u>Overlay Network</u>
+
+Multi-host networking (supported out-of-the-box) - mostly used in production where deployment are on different machines
+
+Need to satisfy pre-conditions
+1. Running docker engine in swarm-mode
+2. A key-value store such as consul

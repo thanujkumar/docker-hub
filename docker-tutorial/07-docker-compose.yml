@@ -1,0 +1,18 @@
+version: '3'
+services:
+  sandbox1:
+    build:
+      context: .
+      dockerfile: 06-Dockerfile
+    depends_on:
+      - sandbox2
+    networks:
+      - tk_net
+  sandbox2:
+    image: linuxconfig/sandbox
+    networks:
+      - tk_net
+
+networks:
+  tk_net:
+    driver: bridge
