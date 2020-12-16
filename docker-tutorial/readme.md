@@ -136,9 +136,14 @@ Compose is a tool for defining and running multi-container Docker applications.
 > docker-compose -f 06-docker-compose.yml restart
 > docker-compose -f 06-docker-compose.yml rm
 > docker-compose down  (will remove containers and network bridge too)
+> docker-compose ps
+> docker-compose logs
+> docker-compose logs -f
+> docker-compose logs <container-name>  - only logs from that container
 ```
 
 ##### <u> Docker Network types </u>
+
 1. Closed Network/None Network - no access to outside and container is isolated from other containers
 2. Bridged Network
 3. Host Network
@@ -148,15 +153,22 @@ Compose is a tool for defining and running multi-container Docker applications.
 > docker network ls   (by default bridge, host and none will be present)
 > docker network inspect 70b1813cec07  (checking bridge network listed above and will be able to view subnet details)
 ```
+![Alt](./images/docker-network-default.png "Docker Network Default")
 
 <u>Closed/None Network</u>
 
 ```
-> docker run --rm -d --net none linuxconfig/sandbox sleep 1000   (Closed/None example, can't ping to outside and also only one localloop network from ifconfig)
+> docker run --rm -d --net none linuxconfig/sandbox sleep 1000   (Closed/None example, can't ping to outside and also only one local loop network from ifconfig)
 ```
 <u>Bridged Network</u>
+* This is the default network
+* In bridge network, container has two interface - loopback (lo) and private (eth0)
+* All containers in same bridge network can communicate each other
+* Containers from different bridge network can't communicate each other by default unless bridges are connected
 
 ```
+> docker network ls
+> docker network inspect bridge
 > docker run --rm -d --name container_1 linuxconfig/sandbox sleep 1000  (no --net parameter, by default bridge is assigned, has access to outside and any linked container, has two network loopback and eth0)
 > docker run --rm -d --name container_2 linuxconfig/sandbox sleep 1000 (check the IP's through private IP can ping other though --link is not provided)
 ```
@@ -177,6 +189,7 @@ How to connect between different bridge networks
 
 <u>Host Network</u>
 The least protected network model, it adds a container on the host's network stack (full access to host interface). These sort of containers are called **Open Containers**
+One benefit is performance (use there is valid reason)
 
 ```
 > docker run --rm -d --name container_4 --net host linuxconfig/sandbox sleep 1000  (lists all host network interfaces and good performance as no SDN in between)
@@ -189,3 +202,25 @@ Multi-host networking (supported out-of-the-box) - mostly used in production whe
 Need to satisfy pre-conditions
 1. Running docker engine in swarm-mode
 2. A key-value store such as consul
+
+<u>Defining network using docker-compose</u>
+
+```
+> docker-compose 0f 07-docker-compose.yml up -d
+> docker network ls
+> docker network rm docker-tutorial_tk_net
+```
+
+<u> Defining Custom Network Driver</u>
+Used in complex scenarios to isolation access between different layers and where options can be passed to driver
+
+--------------------------------------
+08-Dockefile
+
+```
+> docker build -t dockertk/git -f 08-Dockerfile .
+> mkdir in D://DELETE/source
+> docker run -v D://DELETE/source:/source dockertk/git git clone https://github.com/thanujkumar/docker-hub.git -b master /source
+> docker run -v $(pwd):/source -it node:8 bash    (Running nodejs in current folder mapped to source)
+```
+* 
