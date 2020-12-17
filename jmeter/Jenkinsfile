@@ -1,0 +1,27 @@
+#!/usr/bin/env groovy
+
+pipeline {
+
+    agent {
+        label 'docker'
+        dockerfile true
+    }
+
+
+    stages {
+
+     stage('environment values') {
+          steps {
+              sh 'env'
+          }
+     }//end of environment values stage
+
+     stage('checkout') {
+          steps {
+              // Get code from fs stash
+              checkout scm
+          }
+     }
+
+    }//end of stages
+}
