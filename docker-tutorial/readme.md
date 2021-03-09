@@ -221,10 +221,13 @@ Used in complex scenarios to isolation access between different layers and where
 > docker build -t dockertk/git -f 08-Dockerfile .
 > mkdir in D://DELETE/source
 > docker run --rm -v D://DELETE/source:/source dockertk/git git clone https://github.com/thanujkumar/docker-hub.git -b master /source
+
+ (recommended by Docker best-practice for wsl2) - https://docs.docker.com/docker-for-windows/wsl/#develop-with-docker-and-wsl-2
+
 > docker run --rm -v D://DELETE/source:/source dockertk/git git --git-dir=/source/.git pull
 > docker run --rm -v D://DELETE/source:/source -it node:8 bash  (pull nodejs and run the nodejs server with below command)
 > node /source/docker-tutorial/nodejs/index.js &  (inside node container)
-> curl localhost:3000 (inside node container)
+> curl localhost:3000 (inside node container) or using docker inspect <container-id> find the ip address, then curl <ip>:3000 
 ```
 09-Dockefile
 
@@ -239,5 +242,6 @@ Next create a production like setup to deploy, hence needs certificates
 > openssl genrsa -aes256 -out ca-key.pem 4096
 generate self signed certificate
 > openssl req -key ca-key.pem -new -x509 -subj '/O=Docker Tutorial/CN=TK Certificate Authority' -sha256 -days 365 -out ca.pem
-on windows deamon.json is at users/thanuj/.docker
+
+On windows deamon.json is at users/thanuj/.docker
 ```
